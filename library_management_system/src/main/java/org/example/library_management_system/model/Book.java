@@ -19,7 +19,7 @@ public class Book {
     @NotBlank
     @Column(nullable = false)
     private String title;
-    @Column(columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isAvailable;
     @Column(nullable = false)
     private int availableAmount;
