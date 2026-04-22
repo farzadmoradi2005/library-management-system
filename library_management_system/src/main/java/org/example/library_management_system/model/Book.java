@@ -1,6 +1,7 @@
 package org.example.library_management_system.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -23,6 +24,9 @@ public class Book {
     private boolean isAvailable;
     @Column(nullable = false)
     private int availableAmount;
+    @Min(1)
+    @Column(nullable = false)
+    private int totalCopies;
     @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Loan> loans;
 }
