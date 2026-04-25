@@ -1,10 +1,8 @@
 package org.example.library_management_system.repository;
 
 
-import org.example.library_management_system.model.Book;
 import org.example.library_management_system.model.Loan;
 import org.example.library_management_system.model.LoanStatus;
-import org.example.library_management_system.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface loanRepository extends JpaRepository<Loan, Long> {
+public interface LoanRepository extends JpaRepository<Loan, Long> {
 List<Loan> findByUserId(Long userId);
     List<Loan> findByBookIdAndStatus(Long bookId, LoanStatus status);
     Optional<Loan> findByUserIdAndBookIdAndStatus(Long userId,Long bookId, LoanStatus status);

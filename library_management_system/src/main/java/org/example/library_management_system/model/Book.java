@@ -29,4 +29,5 @@ public class Book {
     private int totalCopies;
     @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Loan> loans;
+
 }
