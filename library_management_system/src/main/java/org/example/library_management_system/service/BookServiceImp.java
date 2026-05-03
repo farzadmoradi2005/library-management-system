@@ -24,6 +24,7 @@ public class BookServiceImp implements BookService {
                .totalCopies(bookRequestDTO.getTotalCopies())
                .availableAmount(bookRequestDTO.getTotalCopies())
                .build();
+       //System.out.println("aaa");
        return bookMapper.bookToBookResponseDTO(bookRepository.save(book));
    }
    @Override

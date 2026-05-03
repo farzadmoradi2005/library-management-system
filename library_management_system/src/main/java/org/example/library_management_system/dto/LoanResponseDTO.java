@@ -9,7 +9,6 @@ import org.example.library_management_system.model.LoanStatus;
 import java.time.LocalDate;
 
 @Data
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoanResponseDTO {
 

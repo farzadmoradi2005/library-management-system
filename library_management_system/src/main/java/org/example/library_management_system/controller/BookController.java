@@ -17,8 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    @PostMapping
+    @PostMapping("post")
     public ResponseEntity<BookResponseDTO> addBook(@Valid @RequestBody BookRequestDTO bookRequestDTO) {
+        System.out.println(";;;;");
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(bookService.addBook(bookRequestDTO));
     }
