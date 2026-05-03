@@ -21,6 +21,7 @@ public class BookServiceImp implements BookService {
    public BookResponseDTO addBook(BookRequestDTO bookRequestDTO) {
        Book book = Book.builder()
                .title(bookRequestDTO.getTitle())
+               .isbn(bookRequestDTO.getIsbn())
                .totalCopies(bookRequestDTO.getTotalCopies())
                .availableAmount(bookRequestDTO.getTotalCopies())
                .build();
@@ -41,6 +42,7 @@ public class BookServiceImp implements BookService {
        Book book = getBookOrThrow(id);
        book.setTitle(bookRequestDTO.getTitle());
        book.setTotalCopies(bookRequestDTO.getTotalCopies());
+       book.setIsbn(bookRequestDTO.getIsbn());
        return bookMapper.bookToBookResponseDTO(bookRepository.save(book));
    }
    @Override

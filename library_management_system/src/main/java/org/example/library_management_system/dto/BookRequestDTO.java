@@ -1,10 +1,10 @@
 package org.example.library_management_system.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.library_management_system.validation.UniqueIsbn;
 
 @Data
 @AllArgsConstructor
@@ -12,8 +12,15 @@ import lombok.NoArgsConstructor;
 public class BookRequestDTO {
 
     @NotBlank(message = "عنوان کتاب الزامی است")
+    @Size(min = 2, max = 255, message = "عنوان باید بین ۲ تا ۲۵۵ کاراکتر باشد")
     private String title;
 
-    @Min(value = 1, message = "تعداد کل نسخه‌ها حداقل باید ۱ باشد")
+
+    @Min(value = 1, message = "حداقل یک نسخه باید وجود داشته باشد")
+    @Max(value = 100, message = "حداکثر ۱۰۰ نسخه مجاز است")
     private int totalCopies;
+
+    @UniqueIsbn
+    @Pattern(regexp = "...", message = "فرمت ISBN معتبر نیست")
+    private String isbn;
 }

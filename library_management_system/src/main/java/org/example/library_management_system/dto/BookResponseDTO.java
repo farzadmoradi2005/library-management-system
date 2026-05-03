@@ -9,4 +9,6 @@ public class BookResponseDTO {
     private String title;
     private Integer availableAmount;
     private boolean isAvailable;
+    private String isbn;
+
 }
