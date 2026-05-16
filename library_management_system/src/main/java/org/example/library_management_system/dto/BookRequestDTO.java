@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.library_management_system.validation.UniqueIsbn;
+import org.example.library_management_system.validation.ValidationGroups;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class BookRequestDTO {
     @Max(value = 100, message = "حداکثر ۱۰۰ نسخه مجاز است")
     private int totalCopies;
 
-    @UniqueIsbn
+    @UniqueIsbn(groups = ValidationGroups.OnCreate.class)
     @Pattern(regexp = "...", message = "فرمت ISBN معتبر نیست")
     private String isbn;
 }

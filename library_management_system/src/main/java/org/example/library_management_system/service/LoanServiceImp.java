@@ -6,6 +6,7 @@ import org.example.library_management_system.Mapper.BookMapper;
 import org.example.library_management_system.Mapper.LoanMapper;
 import org.example.library_management_system.dto.LoanRequestDTO;
 import org.example.library_management_system.dto.LoanResponseDTO;
+import org.example.library_management_system.dto.PageResponseDTO;
 import org.example.library_management_system.exception.BookNotAvailableException;
 import org.example.library_management_system.exception.ResourceNotFoundException;
 import org.example.library_management_system.model.Book;
@@ -15,6 +16,8 @@ import org.example.library_management_system.model.User;
 import org.example.library_management_system.repository.BookRepository;
 import org.example.library_management_system.repository.LoanRepository;
 import org.example.library_management_system.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -66,7 +69,9 @@ public class LoanServiceImp implements LoanService {
     }
 
     @Override
-    public List<LoanResponseDTO> getUserLoans(Long userId) {
-        return loanRepository.findByUserId(userId).stream().map(loanMapper::loanToLoanResponseDTO).toList();
+    public PageResponseDTO<LoanResponseDTO> getUserLoans(Long userId , Pageable pageable) {
+        Page<Loan> loans = loanRepository.findByUserId(userId , pageable);
+        Page<LoanResponseDTO> loanResponseDTOS = loans.map(loanMapper::loanToLoanResponseDTO);
+        return PageResponseDTO.of(loanResponseDTOS);
     }
 }

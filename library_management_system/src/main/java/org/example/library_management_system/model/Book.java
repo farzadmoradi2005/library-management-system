@@ -27,6 +27,8 @@ public class Book {
     @Min(1)
     @Column(nullable = false)
     private int totalCopies;
+    @Version
+    private Long version;
     @Column(unique = true)
     private String isbn;
     @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)

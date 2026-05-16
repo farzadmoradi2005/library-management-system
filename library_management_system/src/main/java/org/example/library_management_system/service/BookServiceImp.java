@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.library_management_system.Mapper.BookMapper;
 import org.example.library_management_system.dto.BookRequestDTO;
 import org.example.library_management_system.dto.BookResponseDTO;
+import org.example.library_management_system.dto.PageResponseDTO;
 import org.example.library_management_system.exception.ResourceNotFoundException;
 import org.example.library_management_system.model.Book;
 import org.example.library_management_system.repository.BookRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +32,10 @@ public class BookServiceImp implements BookService {
        return bookMapper.bookToBookResponseDTO(bookRepository.save(book));
    }
    @Override
-   public List<BookResponseDTO> getAllBooks() {
-       return bookRepository.findAll().stream().map(bookMapper::bookToBookResponseDTO).collect(Collectors.toList());
+   public PageResponseDTO<BookResponseDTO> getAllBooks(Pageable pageable) {
+       Page<Book> books = bookRepository.findAll(pageable);
+       Page<BookResponseDTO> bookResponseDTOS = books.map(bookMapper::bookToBookResponseDTO);
+       return PageResponseDTO.of(bookResponseDTOS);
    }
    @Override
    public BookResponseDTO getBookById(Long id) {
@@ -53,8 +58,10 @@ public class BookServiceImp implements BookService {
        bookRepository.deleteById(id);
    }
    @Override
-   public List<BookResponseDTO> searchBook(String title) {
-       return bookRepository.findByTitleContainsIgnoreCase(title).stream().map(bookMapper::bookToBookResponseDTO).toList();
+   public PageResponseDTO<BookResponseDTO> searchBook(String title , Pageable pageable) {
+       Page<Book> page = bookRepository.findByTitleContainsIgnoreCase(title , pageable);
+       Page<BookResponseDTO> pageResponseDTO = page.map(bookMapper::bookToBookResponseDTO);
+       return PageResponseDTO.of(pageResponseDTO);
    }
    private Book getBookOrThrow(Long id) {
        return bookRepository.findById(id)

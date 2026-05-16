@@ -2,14 +2,16 @@ package org.example.library_management_system.service;
 
 import org.example.library_management_system.dto.BookRequestDTO;
 import org.example.library_management_system.dto.BookResponseDTO;
+import org.example.library_management_system.dto.PageResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface BookService {
 
     BookResponseDTO addBook(BookRequestDTO bookRequestDTO);
-
-    List<BookResponseDTO> getAllBooks();
+    PageResponseDTO<BookResponseDTO> getAllBooks(Pageable pageable);
 
     BookResponseDTO getBookById(Long id);
 
@@ -17,5 +19,5 @@ public interface BookService {
 
     void deleteBook(Long id);
 
-    List<BookResponseDTO> searchBook(String title);
+    PageResponseDTO<BookResponseDTO> searchBook(String title , Pageable pageable);
 }
